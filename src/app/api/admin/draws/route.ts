@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Get all scores for active users
-  const userIds = activeUsers.map(u => u.id);
+  const userIds = activeUsers.map((u: any) => u.id);
   const { data: allScores } = await supabaseAdmin
     .from('scores')
     .select('user_id, score')
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
   // Generate drawn numbers
   let drawnNumbers: number[];
   if (mode === 'algorithmic') {
-    const scoreValues = (allScores || []).map(s => s.score);
+    const scoreValues = (allScores || []).map((s: any) => s.score);
     drawnNumbers = generateAlgorithmicNumbers(scoreValues);
   } else {
     drawnNumbers = generateRandomNumbers();
@@ -84,8 +84,8 @@ export async function POST(req: NextRequest) {
   }
 
   // Calculate prize pool
-  const monthlyCount = activeUsers.filter(u => u.subscription_plan === 'monthly').length;
-  const yearlyCount = activeUsers.filter(u => u.subscription_plan === 'yearly').length;
+  const monthlyCount = activeUsers.filter((u: any) => u.subscription_plan === 'monthly').length;
+  const yearlyCount = activeUsers.filter((u: any) => u.subscription_plan === 'yearly').length;
   const pool = calculatePrizePool(monthlyCount, yearlyCount, 9.99, 89.99, 0.3, jackpotCarryover);
 
   // Create draw record
@@ -110,12 +110,12 @@ export async function POST(req: NextRequest) {
 
   // Group scores by user
   const scoresByUser: Record<string, number[]> = {};
-  for (const s of allScores || []) {
+  for (const s of (allScores || []) as any[]) {
     if (!scoresByUser[s.user_id]) scoresByUser[s.user_id] = [];
     scoresByUser[s.user_id].push(s.score);
   }
 
-  for (const user of activeUsers) {
+  for (const user of activeUsers as any[]) {
     const userScores = (scoresByUser[user.id] || []).slice(0, 5);
     if (userScores.length === 0) continue;
 

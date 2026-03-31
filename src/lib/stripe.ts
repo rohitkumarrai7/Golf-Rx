@@ -1,21 +1,21 @@
 import Stripe from 'stripe';
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  typescript: true,
-} as any);
+export const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, { typescript: true } as any)
+  : null as any;
 
 export const PLANS = {
   monthly: {
     name: 'Monthly Plan',
     price: 9.99,
-    priceId: process.env.STRIPE_MONTHLY_PRICE_ID!,
+    priceId: process.env.STRIPE_MONTHLY_PRICE_ID || '',
     interval: 'month' as const,
     description: 'Full access with monthly billing',
   },
   yearly: {
     name: 'Yearly Plan',
     price: 89.99,
-    priceId: process.env.STRIPE_YEARLY_PRICE_ID!,
+    priceId: process.env.STRIPE_YEARLY_PRICE_ID || '',
     interval: 'year' as const,
     description: 'Save 25% with annual billing',
     savings: '25%',

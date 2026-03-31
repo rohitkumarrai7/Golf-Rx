@@ -45,9 +45,9 @@ export async function POST(req: NextRequest) {
     .gte('matched_count', 3);
 
   // Calculate prize per winner per tier
-  const tier5Winners = winningEntries?.filter(e => e.matched_count === 5) || [];
-  const tier4Winners = winningEntries?.filter(e => e.matched_count === 4) || [];
-  const tier3Winners = winningEntries?.filter(e => e.matched_count === 3) || [];
+  const tier5Winners = winningEntries?.filter((e: any) => e.matched_count === 5) || [];
+  const tier4Winners = winningEntries?.filter((e: any) => e.matched_count === 4) || [];
+  const tier3Winners = winningEntries?.filter((e: any) => e.matched_count === 3) || [];
 
   const tier5Prize = tier5Winners.length > 0 ? pool.tier_5_amount / tier5Winners.length : 0;
   const tier4Prize = tier4Winners.length > 0 ? pool.tier_4_amount / tier4Winners.length : 0;
@@ -55,19 +55,19 @@ export async function POST(req: NextRequest) {
 
   // Create winner records
   const winnerRecords = [
-    ...tier5Winners.map(w => ({
+    ...tier5Winners.map((w: any) => ({
       draw_id,
       user_id: w.user_id,
       match_type: 5,
       prize_amount: Math.round(tier5Prize * 100) / 100,
     })),
-    ...tier4Winners.map(w => ({
+    ...tier4Winners.map((w: any) => ({
       draw_id,
       user_id: w.user_id,
       match_type: 4,
       prize_amount: Math.round(tier4Prize * 100) / 100,
     })),
-    ...tier3Winners.map(w => ({
+    ...tier3Winners.map((w: any) => ({
       draw_id,
       user_id: w.user_id,
       match_type: 3,

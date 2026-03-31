@@ -39,7 +39,7 @@ export async function POST() {
       });
 
       const completedSession = sessions.data.find(
-        (s) => s.status === 'complete' && s.subscription
+        (s: any) => s.status === 'complete' && s.subscription
       );
 
       if (completedSession && completedSession.subscription) {

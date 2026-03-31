@@ -45,14 +45,14 @@ export async function GET() {
     .select('prize_amount')
     .eq('payout_status', 'paid');
 
-  const totalPayouts = (payouts || []).reduce((sum, p) => sum + (p.prize_amount || 0), 0);
+  const totalPayouts = (payouts || []).reduce((sum: number, p: any) => sum + (p.prize_amount || 0), 0);
 
   // Charity donations
   const { data: donations } = await supabaseAdmin
     .from('donations')
     .select('amount');
 
-  const totalCharityDonations = (donations || []).reduce((sum, d) => sum + (d.amount || 0), 0);
+  const totalCharityDonations = (donations || []).reduce((sum: number, d: any) => sum + (d.amount || 0), 0);
 
   // Charity totals breakdown
   const { data: charityTotals } = await supabaseAdmin

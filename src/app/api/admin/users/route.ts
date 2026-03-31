@@ -23,7 +23,7 @@ export async function GET() {
 
   // Get scores count for each user
   const usersWithScores = await Promise.all(
-    (users || []).map(async (user) => {
+    (users || []).map(async (user: any) => {
       const { count } = await supabaseAdmin
         .from('scores')
         .select('*', { count: 'exact', head: true })
