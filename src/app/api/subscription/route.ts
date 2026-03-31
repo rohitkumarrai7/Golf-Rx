@@ -77,7 +77,8 @@ export async function POST(req: NextRequest) {
 
   let customerId = user?.stripe_customer_id;
 
-  if (!customerId) {
+  // Create a real Stripe customer if none exists or if it's a demo ID
+  if (!customerId || customerId.startsWith('demo_')) {
     const customer = await stripe.customers.create({
       metadata: { userId },
     });
