@@ -8,7 +8,7 @@ A modern subscription-driven web platform combining golf performance tracking, c
 
 ## Live Demo
 
-- **URL**: [Deployed on Vercel]
+- **URL**: [https://golf-rx.vercel.app/]
 - **User Test**: Sign up → Activate Demo → Enter Scores → View Dashboard
 - **Admin Test**: Set `role = 'admin'` in Supabase `users` table → Access `/admin`
 
